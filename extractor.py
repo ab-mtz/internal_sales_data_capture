@@ -2,7 +2,7 @@ from PIL import Image
 from pytesseract import pytesseract
 
 # Define path to tesseract.exec
-path_tesseract = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+path_tesseract = r'C:\Users\abmtz\AppData\Local\Programs\Tesseract-OCR'
 
 path_image = 'images\sample-text-1.jpg'
 
