@@ -11,8 +11,8 @@ pytesseract.tesseract_cmd = path_tesseract
 
 def main():
     # Read image
-    im = input("Select image: ")
-    path_image = f'images\sample-text-{im}.png'
+    # im = input("Select image: ")
+    path_image = f'images\sample-text-2.png'
     img = Image.open(path_image)
     # Extract text 
     text = pytesseract.image_to_string(img)
