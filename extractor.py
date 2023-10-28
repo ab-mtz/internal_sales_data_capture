@@ -2,9 +2,8 @@ from PIL import Image
 from pytesseract import pytesseract
 
 # Define path to tesseract.exec
-path_tesseract = r'C:\Users\abmtz\AppData\Local\Programs\Tesseract-OCR'
+path_tesseract = r'C:\Users\abmtz\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
-path_image = 'images\sample-text-1.jpg'
 
 # Point tesseract_cmd to tesseract.exe
 pytesseract.tesseract_cmd = path_tesseract
@@ -12,6 +11,8 @@ pytesseract.tesseract_cmd = path_tesseract
 
 def main():
     # Read image
+    im = input("Select image: ")
+    path_image = f'images\sample-text-{im}.png'
     img = Image.open(path_image)
     # Extract text 
     text = pytesseract.image_to_string(img)
