@@ -4,7 +4,7 @@ from pytesseract import pytesseract
 # Define path to tesseract.exec
 path_tesseract = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-path_image = 'images/sample-sample-text-1.jpg'
+path_image = 'images\sample-text-1.jpg'
 
 # Point tesseract_cmd to tesseract.exe
 pytesseract.tesseract_cmd = path_tesseract
