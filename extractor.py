@@ -1,25 +1,18 @@
 from PIL import Image
-from pytesseract import pytesseract
-
-# Define path to tesseract.exec
-path_tesseract = r'C:\Users\abmtz\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
-
-
-# Point tesseract_cmd to tesseract.exe
-pytesseract.tesseract_cmd = path_tesseract
+import easyocr 
+from icecream import ic
+import re
 
 
 def main():
-    # Read image
-    # im = input("Select image: ")
-    path_image = f'images\sample-text-2.png'
-    img = Image.open(path_image)
-    # Extract text 
-    text = pytesseract.image_to_string(img)
+    # Create reader
+    reader = easyocr.Reader(['de'])
 
-    print(text)
-    # run tesseract
+    # Load image
+    image_path = 'images\sample-text-1.jpg'
     # extract text
+    results = reader.readtext(image_path)
+    ic(results)
     # search for regular expresions
         # Bestellungs nummer
         # datum
