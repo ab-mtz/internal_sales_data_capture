@@ -19,7 +19,7 @@ def main():
         # datum
         # pattern = '\d+\.\d+\.\d+'
         # €
-        # pattern = '\d+ *€'
+        # pattern = '\d*.?\d+ *€'
     # pack info 
     # conect to google sheet api 
     # instert into to fields
