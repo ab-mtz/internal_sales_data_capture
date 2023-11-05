@@ -22,9 +22,9 @@ def main():
         # ic(line)
         _, content, _2 = line
         ic(content)
-        bestellung_pattern = 'de\d*'
-        date_pattern = '\d+\.\d+\.\d+'
-        zahlung_pattern = '\d*.?\d+ *€'
+        bestellung_pattern = r'de\d*'
+        date_pattern = r'\d+\.\d+\.\d+'
+        zahlung_pattern = r'\d*.?\d+ *€'
         if content == re.search(bestellung_pattern, content):
             bestellung = content
         if content == re.search(date_pattern, content):
