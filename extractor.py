@@ -13,7 +13,11 @@ def main():
     # extract text
     results = reader.readtext(image_path)
     # ic(results)
+
     # search for regular expresions
+    bestellung = ""
+    datum = ""
+    zahlung = ""
     for line in results:
         # ic(line)
         _, content, _2 = line
