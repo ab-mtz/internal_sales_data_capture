@@ -25,11 +25,11 @@ def main():
         bestellung_pattern = 'de\d*'
         date_pattern = '\d+\.\d+\.\d+'
         zahlung_pattern = '\d*.?\d+ *€'
-        if content == bestellung_pattern:
+        if content == re.search(bestellung_pattern):
             bestellung = content
-        if content == date_pattern:
+        if content == re.search(date_pattern):
             datum == content
-        if content == zahlung_pattern:
+        if content == re.search(zahlung_pattern):
             zahlung = content
     ic(bestellung, datum, zahlung)
         
