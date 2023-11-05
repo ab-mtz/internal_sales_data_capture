@@ -12,10 +12,12 @@ def main():
     image_path = 'images\sample1.jpg'
     # extract text
     results = reader.readtext(image_path)
-    ic(results)
+    # ic(results)
     # search for regular expresions
+    for line in results:
+        ic(line)
         # Bestellungs nummer
-        # pattern = 'bestellung'
+        # pattern = 'de\d*'
         # datum
         # pattern = '\d+\.\d+\.\d+'
         # €
