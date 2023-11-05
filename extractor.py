@@ -9,7 +9,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample-text-1.jpg'
+    image_path = 'images\sample1.jpg'
     # extract text
     results = reader.readtext(image_path)
     ic(results)
