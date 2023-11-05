@@ -15,9 +15,20 @@ def main():
     # ic(results)
     # search for regular expresions
     for line in results:
-        ic(line)
+        # ic(line)
         _, content, _2 = line
         ic(content)
+        bestellung_pattern = 'de\d*'
+        date_pattern = '\d+\.\d+\.\d+'
+        zahlung_pattern = '\d*.?\d+ *€'
+        if content == bestellung_pattern:
+            bestellung = content
+        if content == date_pattern:
+            datum == content
+        if content == zahlung_pattern:
+            zahlung = content
+    ic(bestellung, datum, zahlung)
+        
         # Bestellungs nummer
         # pattern = 'de\d*'
         # datum
