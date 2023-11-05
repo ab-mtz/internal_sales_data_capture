@@ -16,6 +16,8 @@ def main():
     # search for regular expresions
     for line in results:
         ic(line)
+        _, content_, _2 = line
+        ic(content)
         # Bestellungs nummer
         # pattern = 'de\d*'
         # datum
