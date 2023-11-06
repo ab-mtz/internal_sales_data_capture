@@ -23,7 +23,7 @@ def main():
         _, content, _2 = line
         ic(content)
         bestellung_pattern = r'de\d*'
-        date_pattern = r'\d+\.\d+\.\d+'
+        date_pattern = r'^\d{2}\.\d{2}\.\d{4}$'
         zahlung_pattern = r'\d*.?\d+ *€'
         if match := re.search(bestellung_pattern, content):
             bestellung = match[0]
