@@ -28,7 +28,7 @@ def main():
         if match := re.search(bestellung_pattern, content):
             bestellung = match[0]
         if match := re.search(date_pattern, content):
-            datum == match[0]
+            datum = match[0]
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
     ic(bestellung, datum, zahlung)
