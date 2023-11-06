@@ -27,10 +27,10 @@ def main():
         zahlung_pattern = r'\d*.?\d+ *€'
         if match := re.search(bestellung_pattern, content):
             bestellung = match[0]
-        if content == re.search(date_pattern, content):
-            datum == content
-        if content == re.search(zahlung_pattern, content):
-            zahlung = content
+        if match == re.search(date_pattern, content):
+            datum == match[0]
+        if match == re.search(zahlung_pattern, content):
+            zahlung = match[0]
     ic(bestellung, datum, zahlung)
         
         # Bestellungs nummer
