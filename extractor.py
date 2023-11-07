@@ -32,15 +32,10 @@ def main():
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
     ic(bestellung, datum, zahlung)
-        
-        # Bestellungs nummer
-        # pattern = 'de\d*'
-        # datum
-        # pattern = '\d+\.\d+\.\d+'
-        # €
-        # pattern = '\d*.?\d+ *€'
+   
     # pack info 
     # conect to google sheet api 
+    
     # instert into to fields
 
 if __name__ == "__main__":
