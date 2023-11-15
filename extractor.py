@@ -21,7 +21,7 @@ def main():
     for line in results:
         # ic(line)
         _, content, _2 = line
-        ic(content)
+        # ic(content)
         bestellung_pattern = r'de\d*'
         date_pattern = r'^\d{2}\.\d{2}\.\d{4}$'
         zahlung_pattern = r'\d*.?\d+ *€'
@@ -35,7 +35,7 @@ def main():
    
     # pack info 
     # conect to google sheet api 
-    
+
     # instert into to fields
 
 if __name__ == "__main__":
