@@ -3,9 +3,13 @@ import easyocr
 from icecream import ic
 import re
 import csv
-import datetime import date
+from datetime import datetime
 
-date = datetime.now()
+current_datetime = datetime.now()
+year = current_datetime.year
+month = current_datetime.month
+day = current_datetime.day
+
 def main():
     # Create reader
     reader = easyocr.Reader(['de'])
@@ -34,8 +38,8 @@ def main():
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
     ic(bestellung, datum, zahlung)
-    ic(date)
-   with open()
+    ic(year, day, month)
+#    with open()
     # pack info 
     # conect to google sheet api 
 
