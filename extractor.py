@@ -41,7 +41,7 @@ def main():
             bestellung = match[0]
             ic(match)
         if match := re.search(date_pattern, content):
-            datum = match[0]
+            datum = validate_date(match[0])
             ic(match)
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
@@ -51,11 +51,6 @@ def main():
             bestellung = ""
             datum = ""
             zahlung = ""
-
-
-    
-    ic(data)
-    ic(year, day, month)
 
     filename = "output.csv"
     with open(filename, mode='w', newline='') as file:
@@ -69,6 +64,13 @@ def main():
     # conect to google sheet api 
 
     # instert into to fields
+
+def validate_date(matched):
+    ic(matched)
+    day, month, year = map(int, matched.split("."))
+    if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
+        return 'Reading error'
+
 
 if __name__ == "__main__":
     main()
