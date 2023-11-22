@@ -20,11 +20,12 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample1.jpg'
+    image_path = 'images\sample3.jpg'
     # extract text
     results = reader.readtext(image_path)
-    # ic(results)
-
+    ic(results)
+    
+    # for i in range(3)
     # search for regular expresions
     bestellung = ""
     datum = ""
@@ -38,13 +39,21 @@ def main():
         zahlung_pattern = r'\d*.?\d+ *€'
         if match := re.search(bestellung_pattern, content):
             bestellung = match[0]
+            ic(match)
         if match := re.search(date_pattern, content):
             datum = match[0]
+            ic(match)
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
+            ic(match)
+        if bestellung and datum and zahlung:
+            data.append([bestellung, datum, zahlung])
+            bestellung = ""
+            datum = ""
+            zahlung = ""
 
-    ic(data)
-    data.append([bestellung, datum, zahlung])
+
+    
     ic(data)
     ic(year, day, month)
 
