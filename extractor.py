@@ -37,9 +37,17 @@ def main():
             datum = match[0]
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
+            
     ic(bestellung, datum, zahlung)
     ic(year, day, month)
-#    with open()
+
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        
+        # Writing the data to the CSV file
+        writer.writerows(data)
+
+print(f"The CSV file '{filename}' has been created.")
     # pack info 
     # conect to google sheet api 
 
