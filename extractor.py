@@ -2,8 +2,10 @@ from PIL import Image
 import easyocr 
 from icecream import ic
 import re
+import csv
+import datetime import date
 
-
+date = datetime.now()
 def main():
     # Create reader
     reader = easyocr.Reader(['de'])
@@ -32,7 +34,8 @@ def main():
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
     ic(bestellung, datum, zahlung)
-   
+    ic(date)
+   with open()
     # pack info 
     # conect to google sheet api 
 
