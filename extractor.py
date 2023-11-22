@@ -10,6 +10,11 @@ year = current_datetime.year
 month = current_datetime.month
 day = current_datetime.day
 
+data = [
+    # Header
+    ["Bestellung", "Datum", "Zahlung"]
+]
+
 def main():
     # Create reader
     reader = easyocr.Reader(['de'])
@@ -37,17 +42,20 @@ def main():
             datum = match[0]
         if match := re.search(zahlung_pattern, content):
             zahlung = match[0]
-            
-    ic(bestellung, datum, zahlung)
+
+    ic(data)
+    data.append([bestellung, datum, zahlung])
+    ic(data)
     ic(year, day, month)
 
+    filename = "output.csv"
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
         
         # Writing the data to the CSV file
         writer.writerows(data)
 
-print(f"The CSV file '{filename}' has been created.")
+    print(f"The CSV file '{filename}' has been created.")
     # pack info 
     # conect to google sheet api 
 
