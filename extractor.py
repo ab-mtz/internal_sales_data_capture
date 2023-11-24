@@ -64,8 +64,8 @@ def main():
     
     except FileNotFoundError:
         with open(filename, 'w', newline='') as file:
-        print(f"The CSV file '{filename}' has been created.")
             writer = csv.writer(file)
+        print(f"The CSV file '{filename}' has been created.")
 
     # pack info 
     # conect to google sheet api 
