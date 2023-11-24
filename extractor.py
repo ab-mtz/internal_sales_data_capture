@@ -9,10 +9,11 @@ current_datetime = datetime.now()
 year = current_datetime.year
 month = current_datetime.month
 day = current_datetime.day
+current_date = f'{day}.{month}.{year}'
 
 data = [
     # Header
-    ["Bestellung", "Datum", "Zahlung"]
+    ["Bestellung", "Datum", "Zahlung","Captured at"]
 ]
 
 def main():
@@ -20,7 +21,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample3.jpg'
+    image_path = 'images\sample1.jpg'
     # extract text
     results = reader.readtext(image_path)
     ic(results)
@@ -47,19 +48,25 @@ def main():
             zahlung = match[0]
             ic(match)
         if bestellung and datum and zahlung:
-            data.append([bestellung, datum, zahlung])
+            data.append([bestellung, datum, zahlung, current_date])
             bestellung = ""
             datum = ""
             zahlung = ""
 
     filename = "output.csv"
-    with open(filename, mode='w', newline='') as file:
-        writer = csv.writer(file)
+    try:
+        with open(filename, mode='a', newline='') as file:
+            writer = csv.writer(file)
         
-        # Writing the data to the CSV file
-        writer.writerows(data)
+            # Writing the data to the CSV file
+            writer.writerows(data)
+        print(f"The CSV file '{filename}' has been updated.")
+    
+    except FileNotFoundError:
+        with open(filename, 'w', newline='') as file:
+        print(f"The CSV file '{filename}' has been created.")
+            writer = csv.writer(file)
 
-    print(f"The CSV file '{filename}' has been created.")
     # pack info 
     # conect to google sheet api 
 
