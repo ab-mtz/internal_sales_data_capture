@@ -11,10 +11,11 @@ month = current_datetime.month
 day = current_datetime.day
 current_date = f'{day}.{month}.{year}'
 
-data = [
+header = [
     # Header
     ["Bestellung", "Datum", "Zahlung","Captured at"]
 ]
+data = []
 
 def main():
     # Create reader
@@ -54,6 +55,7 @@ def main():
             zahlung = ""
 
     filename = "output.csv"
+    # If file already exists
     try:
         with open(filename, mode='a', newline='') as file:
             writer = csv.writer(file)
@@ -63,8 +65,11 @@ def main():
         print(f"The CSV file '{filename}' has been updated.")
     
     except FileNotFoundError:
+        #If file doesn't exists
         with open(filename, 'w', newline='') as file:
             writer = csv.writer(file)
+            writer.writerow(header)
+            writer.writerows(data)
         print(f"The CSV file '{filename}' has been created.")
 
     # pack info 
