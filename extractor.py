@@ -60,25 +60,25 @@ def main():
     filename = "output.csv"
 
     
-    try:
+    # try:
     # If file already exists
-        with open(filename, mode='a+', newline='') as file:
-            writer = csv.writer(file)
-            file.seek(0, 2)  # Move the cursor to the end of the file
-            file_empty = file.tell() == 0
+    with open(filename, mode='a+', newline='') as file:
+        writer = csv.writer(file)
+        file.seek(0, 2)  # Move the cursor to the end of the file
+        file_empty = file.tell() == 0
 
-            # Create a CSV writer object
-            writer = csv.writer(file)
+        # Create a CSV writer object
+        writer = csv.writer(file)
 
-            # Write the header if the file is empty
-            if file_empty:
-                writer.writerow(header)
-                # Writing the data to the CSV file
-                writer.writerows(data)
-                print(f"The CSV file '{filename}' has been created.")
-            else:
-                writer.writerows(data)
-                print(f"The CSV file '{filename}' has been updated.")
+        # Write the header if the file is empty
+        if file_empty:
+            writer.writerow(header)
+            # Writing the data to the CSV file
+            writer.writerows(data)
+            print(f"The CSV file '{filename}' has been created.")
+        else:
+            writer.writerows(data)
+            print(f"The CSV file '{filename}' has been updated.")
 
     # except FileNotFoundError:
     #     # If the file doesn't exist, create a new CSV file
