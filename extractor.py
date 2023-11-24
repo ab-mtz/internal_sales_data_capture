@@ -15,7 +15,7 @@ header = [
     # Header
     ["Bestellung", "Datum", "Zahlung","Captured at"]
 ]
-data = []
+data = [[]]
 
 def main():
     # Create reader
