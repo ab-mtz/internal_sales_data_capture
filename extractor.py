@@ -57,15 +57,16 @@ def main():
     filename = "output.csv"
     # If file already exists
     try:
+    # Try to open the CSV file in append mode ('a')
         with open(filename, mode='a', newline='') as file:
             writer = csv.writer(file)
-        
+            
             # Writing the data to the CSV file
             writer.writerows(data)
         print(f"The CSV file '{filename}' has been updated.")
-    
+
     except FileNotFoundError:
-        #If file doesn't exists
+        # If the file doesn't exist, create a new CSV file
         with open(filename, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(header)
