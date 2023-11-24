@@ -61,32 +61,35 @@ def main():
             zahlung = ""
 
     ic(data)
-    # try:
-    # If file already exists
-    with open(filename, mode='a+', newline='') as file:
-        writer = csv.writer(file)
-        file.seek(0, 2)  # Move the cursor to the end of the file
-        file_empty = file.tell() == 0
+     try:
+        # If file already exists
+        with open(filename, mode='a+', newline='') as file:
+            writer = csv.writer(file)
+            file.seek(0)  # Move the cursor to the beginning
+            file_empty = file.tell() == 0
 
-        # Create a CSV writer object
-        writer = csv.writer(file)
+            # Create a CSV writer object
+            writer = csv.writer(file)
 
-        # Write the header if the file is empty
-        if file_empty:
-            writer.writerow(header)
+            # Write the header if the file is empty
+            if file_empty:
+                writer.writerows(header)
+
             # Writing the data to the CSV file
             writer.writerows(data)
-            print(f"The CSV file '{filename}' has been created.")
-        else:
-            writer.writerows(data)
-            print(f"The CSV file '{filename}' has been updated.")
 
-    # except FileNotFoundError:
-    #     # If the file doesn't exist, create a new CSV file
-    #     with open(filename, 'w', newline='') as file:
-    #         writer = csv.writer(file)
-    #         writer.writerow(header)
-    #         writer.writerows(data)
+            if file_empty:
+                print(f"The CSV file '{filename}' has been created.")
+            else:
+                print(f"The CSV file '{filename}' has been updated.")
+
+    except FileNotFoundError:
+        # If the file doesn't exist, create a new CSV file
+        with open(filename, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(header)
+            writer.writerows(data)
+            print(f"The CSV file '{filename}' has been created.")
 
     # pack info 
     # conect to google sheet api 
