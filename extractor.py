@@ -64,8 +64,7 @@ def main():
     # If file already exists
         with open(filename, mode='a+', newline='') as file:
             writer = csv.writer(file)
-            
-             file.seek(0, 2)  # Move the cursor to the end of the file
+            file.seek(0, 2)  # Move the cursor to the end of the file
             file_empty = file.tell() == 0
 
             # Create a CSV writer object
