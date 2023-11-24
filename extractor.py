@@ -16,7 +16,7 @@ header = [
     ["Bestellung", "Datum", "Zahlung","Captured at"]
 ]
 data = [
-    
+
 ]
 
 def main():
@@ -76,6 +76,9 @@ def main():
             # Write the header if the file is empty
             if file_empty:
                 writer.writerows(header)
+                file.flush()
+
+            file.seek(0, 2)
 
             # Writing the data to the CSV file
             writer.writerows(data)
