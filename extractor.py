@@ -61,7 +61,7 @@ def main():
             zahlung = ""
 
     ic(data)
-     try:
+    try:
         # If file already exists
         with open(filename, mode='a+', newline='') as file:
             writer = csv.writer(file)
