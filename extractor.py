@@ -23,6 +23,9 @@ def main():
 
     # Load image
     image_path = 'images\sample2.jpg'
+    
+    # Output path 
+    filename = "output.csv"
 
     # extract text
     results = reader.readtext(image_path)
@@ -57,9 +60,7 @@ def main():
             datum = ""
             zahlung = ""
 
-    filename = "output.csv"
-
-    
+    ic(data)
     # try:
     # If file already exists
     with open(filename, mode='a+', newline='') as file:
