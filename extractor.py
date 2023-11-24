@@ -69,7 +69,7 @@ def validate_date(matched):
     ic(matched)
     day, month, year = map(int, matched.split("."))
     if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
-        return 'Reading error'
+        return f'{matched}(Error)'
 
 
 if __name__ == "__main__":
