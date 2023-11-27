@@ -25,7 +25,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample2.jpg'
+    image_path = 'images\sample3.jpg'
     
     # Output path 
     filename = "output.csv"
@@ -71,7 +71,7 @@ def main():
     if not data:
         sys.exit("No data found")
     else:
-        save_data_to_file(data)
+        save_data_to_file(data, filename)
 
     ic(data)
 
@@ -85,8 +85,8 @@ def validate_date(matched):
     day, month, year = map(int, matched.split("."))
     if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
         return f'{matched}(Error)'
-        
-def save_data_to_file(data):
+
+def save_data_to_file(data, filename):
     try:
         # If file already exists
         with open(filename, mode='a+', newline='') as file:
