@@ -24,7 +24,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample3.jpg'
+    image_path = 'images\sample2.jpg'
     
     # Output path 
     filename = "output.csv"
@@ -33,34 +33,42 @@ def main():
     results = reader.readtext(image_path)
     
     # search for regular expresions
-    bestellung = ""
-    datum = ""
-    zahlung = ""
+    bestellung = None
+    datum = None
+    zahlung = None
     for line in results:
-        # ic(line)
+        ic(line)
         _, content, _2 = line
         # ic(content)
-        bestellung_pattern = r'de\d*'
+        bestellung_pattern = r'\bde\d{10}\b'
         date_pattern = r'^\d{2}\.\d{2}\.\d{4}$'
         zahlung_pattern = r'\d*.?\d+ *€'
 
-        if match := re.search(bestellung_pattern, content):
-            bestellung = match[0]
-            ic(match)
+        # if match := re.search(bestellung_pattern, content):
+        #     if bestellung == None:
+        #         bestellung = match.group(0)
+        #     ic(match)
 
-        if match := re.search(date_pattern, content):
-            datum = validate_date(match[0])
-            ic(match)
+        # if match := re.search(date_pattern, content):
+        #     if datum == None:
+        #         datum = validate_date(match.group(0))
+        #     ic(match)
 
-        if match := re.search(zahlung_pattern, content):
-            zahlung = match[0]
-            ic(match)
+        # if match := re.search(zahlung_pattern, content):
+        #     zahlung = match.group(0)
+        #     ic(match)
+        # Define a function to find the first match for a pattern in the text
+        
 
+        # Find the first occurrence of each pattern
+        bestellung = find_first_match(bestellung_pattern, text)
+        date = find_first_match(date_pattern, text)
+        zahlung = find_first_match(zahlung_pattern, text)
         if bestellung and datum and zahlung:
             data.append([bestellung, datum, zahlung, current_date])
-            bestellung = ""
-            datum = ""
-            zahlung = ""
+            bestellung = None
+            datum = None
+            zahlung = None
 
     ic(data)
     try:
@@ -106,7 +114,9 @@ def validate_date(matched):
     day, month, year = map(int, matched.split("."))
     if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
         return f'{matched}(Error)'
-
+def find_first_match(pattern, text):
+            match = re.search(pattern, text)
+            return match.group(0) if match else None
 
 if __name__ == "__main__":
     main()
