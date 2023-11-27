@@ -4,6 +4,7 @@ from icecream import ic
 import re
 import csv
 from datetime import datetime
+import sys
 
 current_datetime = datetime.now()
 year = current_datetime.year
@@ -44,33 +45,48 @@ def main():
         date_pattern = r'^\d{2}\.\d{2}\.\d{4}$'
         zahlung_pattern = r'\d*.?\d+ *€'
 
-        # if match := re.search(bestellung_pattern, content):
-        #     if bestellung == None:
-        #         bestellung = match.group(0)
-        #     ic(match)
+        if match := re.search(bestellung_pattern, content):
+            if bestellung is None:
+                bestellung = match.group(0)
+                ic(match.group(0))
+            ic(match)
 
-        # if match := re.search(date_pattern, content):
-        #     if datum == None:
-        #         datum = validate_date(match.group(0))
-        #     ic(match)
+        if match := re.search(date_pattern, content):
+            if datum is None:
+                datum = validate_date(match.group(0))
+                ic(match.group(0))
 
-        # if match := re.search(zahlung_pattern, content):
-        #     zahlung = match.group(0)
-        #     ic(match)
-        # Define a function to find the first match for a pattern in the text
-        
+            ic(match)
 
-        # Find the first occurrence of each pattern
-        bestellung = find_first_match(bestellung_pattern, text)
-        date = find_first_match(date_pattern, text)
-        zahlung = find_first_match(zahlung_pattern, text)
+        if match := re.search(zahlung_pattern, content):
+            zahlung = match.group(0)
+            ic(match)
+
         if bestellung and datum and zahlung:
             data.append([bestellung, datum, zahlung, current_date])
             bestellung = None
             datum = None
             zahlung = None
 
+    if not data:
+        sys.exit("No data found")
+    else:
+        save_data_to_file(data)
+
     ic(data)
+
+    # pack info 
+    # conect to google sheet api 
+
+    # instert into to fields
+
+def validate_date(matched):
+    ic(matched)
+    day, month, year = map(int, matched.split("."))
+    if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
+        return f'{matched}(Error)'
+        
+def save_data_to_file(data):
     try:
         # If file already exists
         with open(filename, mode='a+', newline='') as file:
@@ -103,20 +119,6 @@ def main():
             writer.writerows(header)
             writer.writerows(data)
             print(f"The CSV file '{filename}' has been created.")
-
-    # pack info 
-    # conect to google sheet api 
-
-    # instert into to fields
-
-def validate_date(matched):
-    ic(matched)
-    day, month, year = map(int, matched.split("."))
-    if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
-        return f'{matched}(Error)'
-def find_first_match(pattern, text):
-            match = re.search(pattern, text)
-            return match.group(0) if match else None
 
 if __name__ == "__main__":
     main()
