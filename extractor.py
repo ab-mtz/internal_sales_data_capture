@@ -52,7 +52,7 @@ def main():
         # ic(content)
 
         bestellung = search_pattern(bestellung_pattern, content) 
-        datum = search_pattern(datum_pattern, content) 
+        datum = search_pattern(date_pattern, content) 
         zahlung = search_pattern(zahlung_pattern, content) 
 
 # Old code
