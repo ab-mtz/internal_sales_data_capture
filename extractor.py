@@ -27,6 +27,7 @@ header = [
     # Header
     ["Bestellung", "Datum", "Zahlung", "Captured at"]
 ]
+
 data = [
 
 ]
@@ -54,7 +55,7 @@ def main():
         bestellung = search_pattern(bestellung_pattern, content)
         # ic(bestellung) 
         datum = search_pattern(datum_pattern, content) 
-        # ic(datum)
+        ic(datum)
         zahlung = search_pattern(zahlung_pattern, content)
         # ic(zahlung)
 
