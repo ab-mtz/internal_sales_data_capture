@@ -6,11 +6,22 @@ import csv
 from datetime import datetime
 import sys
 
+#Dates variables
 current_datetime = datetime.now()
 year = current_datetime.year
 month = current_datetime.month
 day = current_datetime.day
 current_date = f'{day}.{month}.{year}'
+
+# Variables to append
+bestellung = None
+datum = None
+zahlung = None
+
+# Regex patterns
+bestellung_pattern = r'\bde\d{10}\b'
+date_pattern = r'^\d{2}\.\d{2}\.\d{4}$'
+zahlung_pattern = r'\d*.?\d+ *€'
 
 header = [
     # Header
@@ -25,7 +36,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample4.jpeg'
+    image_path = 'images\sample1.jpg'
     
     # Output path 
     filename = "output.csv"
@@ -33,36 +44,36 @@ def main():
     # extract text
     results = reader.readtext(image_path)
     
-    # search for regular expresions
+    # Search for regular expresions
     
-    bestellung = None
-    datum = None
-    zahlung = None
     for line in results:
         ic(line)
         _, content, _2 = line
         # ic(content)
-        bestellung_pattern = r'\bde\d{10}\b'
-        date_pattern = r'^\d{2}\.\d{2}\.\d{4}$'
-        zahlung_pattern = r'\d*.?\d+ *€'
+        
+        bestellung = search_pattern(bestellung_pattern, content) 
+        date = search_pattern(date_pattern, content) 
+        zahlung = search_pattern(zahlung_pattern, content) 
 
-        if match := re.search(bestellung_pattern, content):
-            if bestellung is None:
-                bestellung = match.group(0)
-                ic(match.group(0))
-            ic(match)
+# Old code
+        # if match := re.search(bestellung_pattern, content):
+        #     if bestellung is None:
+        #         bestellung = match.group(0)
+        #         ic(match.group(0))
+        #     ic(match)
 
-        if match := re.search(date_pattern, content):
-            if datum is None:
-                datum = validate_date(match.group(0))
-                ic(match.group(0))
+        # if match := re.search(date_pattern, content):
+        #     if datum is None:
+        #         datum = validate_date(match.group(0))
+        #         ic(match.group(0))
 
-            ic(match)
+        #     ic(match)
 
-        if match := re.search(zahlung_pattern, content):
-            zahlung = match.group(0)
-            ic(match)
+        # if match := re.search(zahlung_pattern, content):
+        #     zahlung = match.group(0)
+        #     ic(match)
 
+# Append the data to data variable
         if bestellung and datum and zahlung:
             data.append([bestellung, datum, zahlung, current_date])
             bestellung = None
@@ -86,6 +97,12 @@ def validate_date(matched):
     day, month, year = map(int, matched.split("."))
     if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
         return f'{matched}(Error)'
+
+def search_pattern(pattern, content):
+    if match := re.search(pattern, content):
+                return match.group(0)
+                
+
 
 def save_data_to_file(data, filename):
     try:
