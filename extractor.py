@@ -20,12 +20,12 @@ zahlung = None
 
 # Regex patterns
 bestellung_pattern = r'\bde\d{10}\b'
-date_pattern = r'^\d{2}\.\d{2}\.\d{4}$'
+datum_pattern = r'\b\d{1,2}\.\d{1,2}\.\d{2,4}\b'
 zahlung_pattern = r'\d*.?\d+ *€'
 
 header = [
     # Header
-    ["Bestellung", "Datum", "Zahlung","Captured at"]
+    ["Bestellung", "Datum", "Zahlung", "Captured at"]
 ]
 data = [
 
@@ -47,16 +47,16 @@ def main():
     # Search for regular expresions
     
     for line in results:
-        ic(line)
+        # ic(line)
         _, content, _2 = line
         # ic(content)
 
         bestellung = search_pattern(bestellung_pattern, content)
-        ic(bestellung) 
-        datum = search_pattern(date_pattern, content) 
-        ic(datum)
+        # ic(bestellung) 
+        datum = search_pattern(datum_pattern, content) 
+        # ic(datum)
         zahlung = search_pattern(zahlung_pattern, content)
-        ic(zahlung)
+        # ic(zahlung)
 
 # Old code
         # if match := re.search(bestellung_pattern, content):
@@ -65,7 +65,7 @@ def main():
         #         ic(match.group(0))
         #     ic(match)
 
-        # if match := re.search(date_pattern, content):
+        # if match := re.search(datum_pattern, content):
         #     if datum is None:
         #         datum = validate_date(match.group(0))
         #         ic(match.group(0))
@@ -106,8 +106,6 @@ def search_pattern(pattern, content):
         ic(match)
         return match[0]
                 
-
-
 def save_data_to_file(data, filename):
     try:
         # If file already exists
