@@ -25,7 +25,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample3.jpg'
+    image_path = 'images\sample4.jpg'
     
     # Output path 
     filename = "output.csv"
@@ -34,6 +34,7 @@ def main():
     results = reader.readtext(image_path)
     
     # search for regular expresions
+    
     bestellung = None
     datum = None
     zahlung = None
