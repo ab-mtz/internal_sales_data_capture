@@ -52,13 +52,14 @@ def main():
         # ic(line)
         _, content, _2 = line
         # ic(content)
-
-        bestellung = search_pattern(bestellung_pattern, content)
+        if not bestellung:
+            bestellung = search_pattern(bestellung_pattern, content)
         ic(bestellung)
         if not datum:
             datum = search_pattern(datum_pattern, content) 
         ic(datum)
-        zahlung = search_pattern(zahlung_pattern, content)
+        if not zahlung:
+            zahlung = search_pattern(zahlung_pattern, content)
         ic(zahlung)
 
 # Old code
