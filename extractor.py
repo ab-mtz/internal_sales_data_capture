@@ -6,33 +6,29 @@ import csv
 from datetime import datetime
 import sys
 
-#Dates variables
-current_datetime = datetime.now()
-year = current_datetime.year
-month = current_datetime.month
-day = current_datetime.day
-current_date = f'{day}.{month}.{year}'
 
-# Variables to append
-bestellung = None
-datum = None
-zahlung = None
-
-# Regex patterns
-bestellung_pattern = r'\bde\d{10}\b'
-datum_pattern = r'\b\d{1,2}\.\d{1,2}\.\d{2,4}\b'
-zahlung_pattern = r'\d*.?\d+ *€'
-
-header = [
-    # Header
-    ["Bestellung", "Datum", "Zahlung", "Captured at"]
-]
-
-data = [
-
-]
 
 def main():
+    #Dates variables
+    current_datetime = datetime.now()
+    year = current_datetime.year
+    month = current_datetime.month
+    day = current_datetime.day
+    current_date = f'{day}.{month}.{year}'
+
+
+    # Regex patterns
+    bestellung_pattern = r'\bde\d{10}\b'
+    datum_pattern = r'\b\d{1,2}\.\d{1,2}\.\d{2,4}\b'
+    zahlung_pattern = r'\d*.?\d+ *€'
+
+    header = [
+        # Header
+        ["Bestellung", "Datum", "Zahlung", "Captured at"]
+    ]
+    data = [
+
+    ]
     # Create reader
     reader = easyocr.Reader(['de'])
 
@@ -45,6 +41,11 @@ def main():
     # extract text
     results = reader.readtext(image_path)
     
+    # Variables to append
+    bestellung = None
+    datum = None
+    zahlung = None
+
     # Search for regular expresions
     
     for line in results:
@@ -53,11 +54,12 @@ def main():
         # ic(content)
 
         bestellung = search_pattern(bestellung_pattern, content)
-        # ic(bestellung) 
-        datum = search_pattern(datum_pattern, content) 
+        ic(bestellung)
+        if not datum:
+            datum = search_pattern(datum_pattern, content) 
         ic(datum)
         zahlung = search_pattern(zahlung_pattern, content)
-        # ic(zahlung)
+        ic(zahlung)
 
 # Old code
         # if match := re.search(bestellung_pattern, content):
@@ -79,6 +81,7 @@ def main():
 
 # Append the data to data variable
         if bestellung and datum and zahlung:
+            ic(data)
             data.append([bestellung, datum, zahlung, current_date])
             bestellung = None
             datum = None
