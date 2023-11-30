@@ -36,7 +36,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample1.jpg'
+    image_path = 'images\sample4.jpeg'
     
     # Output path 
     filename = "output.csv"
@@ -51,9 +51,12 @@ def main():
         _, content, _2 = line
         # ic(content)
 
-        bestellung = search_pattern(bestellung_pattern, content) 
+        bestellung = search_pattern(bestellung_pattern, content)
+        ic(bestellung) 
         datum = search_pattern(date_pattern, content) 
-        zahlung = search_pattern(zahlung_pattern, content) 
+        ic(datum)
+        zahlung = search_pattern(zahlung_pattern, content)
+        ic(zahlung)
 
 # Old code
         # if match := re.search(bestellung_pattern, content):
@@ -100,7 +103,8 @@ def validate_date(matched):
 
 def search_pattern(pattern, content):
     if match := re.search(pattern, content):
-                return match.group(0)
+        ic(match)
+        return match[0]
                 
 
 
