@@ -106,38 +106,41 @@ def search_pattern(pattern, content):
         return match[0]
                 
 def save_data_to_file(data, filename):
-    try:
-        # If file already exists
-        with open(filename, mode='a+', newline='') as file:
-            writer = csv.writer(file)
-            file.seek(0, 2)  # Move the cursor to the beginning
-            file_empty = file.tell() == 0
+    if not data:
+        print("No data found to save")
+    else:
+        try:
+            # If file already exists
+            with open(filename, mode='a+', newline='') as file:
+                writer = csv.writer(file)
+                file.seek(0, 2)  # Move the cursor to the beginning
+                file_empty = file.tell() == 0
 
-            # Create a CSV writer object
-            writer = csv.writer(file)
+                # Create a CSV writer object
+                writer = csv.writer(file)
 
-            # Write the header if the file is empty
-            if file_empty:
+                # Write the header if the file is empty
+                if file_empty:
+                    writer.writerows(header)
+                    file.flush()
+
+                file.seek(0, 2)
+
+                # Writing the data to the CSV file
+                writer.writerows(data)
+
+                if file_empty:
+                    print(f"The CSV file '{filename}' has been created.")
+                else:
+                    print(f"The CSV file '{filename}' has been updated.")
+
+        except FileNotFoundError:
+            # If the file doesn't exist, create a new CSV file
+            with open(filename, 'w', newline='') as file:
+                writer = csv.writer(file)
                 writer.writerows(header)
-                file.flush()
-
-            file.seek(0, 2)
-
-            # Writing the data to the CSV file
-            writer.writerows(data)
-
-            if file_empty:
+                writer.writerows(data)
                 print(f"The CSV file '{filename}' has been created.")
-            else:
-                print(f"The CSV file '{filename}' has been updated.")
-
-    except FileNotFoundError:
-        # If the file doesn't exist, create a new CSV file
-        with open(filename, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(header)
-            writer.writerows(data)
-            print(f"The CSV file '{filename}' has been created.")
 
 def check_values_in_csv(data, filename):
     try:
@@ -154,7 +157,7 @@ def check_values_in_csv(data, filename):
                 for row in reader:
                     # Assuming the value you're checking is in the first column
                     if value == row[0]:
-                        ic(f"Removing entry with value '{value}' from data.")
+                        print(f"Removing entry with value '{value}' from data.")
                         data.remove(entry)
                         break  # Assuming each value appears only once in the CSV
 
