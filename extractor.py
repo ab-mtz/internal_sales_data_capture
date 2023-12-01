@@ -24,10 +24,10 @@ def main():
     folder_path = "to_process"
     image_files = [file for file in os.listdir(folder_path) if file.lower().endswith(('.jpg', '.jpeg'))]
 
-        # Header
-        header = [
-            ["Bestellung", "Datum", "Zahlung", "Captured at"]
-        ]
+    # Header
+    header = [
+        ["Bestellung", "Datum", "Zahlung", "Captured at"]
+    ]
 
     # Create reader
     reader = easyocr.Reader(['de'])
