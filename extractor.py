@@ -36,7 +36,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample4.jpeg'
+    image_path = 'images\sample2.jpg'
     
     # Output path 
     filename = "output.csv"
@@ -79,13 +79,13 @@ def main():
             zahlung = None
 
     if not data:
-        sys.exit("No data found")
+        sys.exit("=" * 20,"We haven´t found new data to store in your csv file","=" * 20)
     else:
         # Check if data already saved in file
         check_values_in_csv(data, filename)
         # ic(data)
 
-        save_data_to_file(data, filename)
+        save_data_to_file(header, data, filename)
 
     # ic(data)
 
@@ -97,6 +97,8 @@ def main():
 def validate_date(_datum):
     # ic(_datum)
     day, month, year = map(int, _datum.split("."))
+    if year < 99:
+        year += 2000
     if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
         return f'{_datum}(Error)'
 
@@ -105,9 +107,9 @@ def search_pattern(pattern, content):
         # ic(match)
         return match[0]
                 
-def save_data_to_file(data, filename):
+def save_data_to_file(header, data, filename):
     if not data:
-        print("No data found to save")
+        print("=" * 20, "We haven´t found new data to store in your csv file", "=" * 20)
     else:
         try:
             # If file already exists
@@ -130,9 +132,9 @@ def save_data_to_file(data, filename):
                 writer.writerows(data)
 
                 if file_empty:
-                    print(f"The CSV file '{filename}' has been created.")
+                    print("=" * 20, f"The CSV file '{filename}' has been created.", "=" * 20)
                 else:
-                    print(f"The CSV file '{filename}' has been updated.")
+                    print("=" * 20, f"The CSV file '{filename}' has been updated.", "=" * 20)
 
         except FileNotFoundError:
             # If the file doesn't exist, create a new CSV file
@@ -140,7 +142,7 @@ def save_data_to_file(data, filename):
                 writer = csv.writer(file)
                 writer.writerows(header)
                 writer.writerows(data)
-                print(f"The CSV file '{filename}' has been created.")
+                print("=" * 20, f"The CSV file '{filename}' has been created.", "=" * 20)
 
 def check_values_in_csv(data, filename):
     try:
@@ -157,12 +159,12 @@ def check_values_in_csv(data, filename):
                 for row in reader:
                     # Assuming the value you're checking is in the first column
                     if value == row[0]:
-                        print(f"Removing entry with value '{value}' from data.")
+                        print("=" * 20, f"The value '{value}' already exist in the CSV file.", "=" * 20)
                         data.remove(entry)
                         break  # Assuming each value appears only once in the CSV
-
     except FileNotFoundError:
-        # ic("CSV file not found.")
+        print("=" * 20, "CSV file not found.", "=" * 20)
+        pass
 
 if __name__ == "__main__":
     main()
