@@ -21,7 +21,9 @@ def main():
     zahlung_pattern = r'\d*.?\d+ *€'
     
     # Load images from the current directory with jpg or jpeg extension
-    image_files = [file for file in os.listdir() if file.lower().endswith(('.jpg', '.jpeg'))]
+    folder_path = "to_process"
+    image_files = [file for file in os.listdir(folder_path) if file.lower().endswith(('.jpg', '.jpeg'))]
+
 
     for image_file in image_files:
         # Load image
