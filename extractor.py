@@ -9,6 +9,7 @@ import sys
 
 
 def main():
+
     #Dates variables
     current_datetime = datetime.now()
     year = current_datetime.year
@@ -16,19 +17,21 @@ def main():
     day = current_datetime.day
     current_date = f'{day}.{month}.{year}'
 
-
     # Regex patterns
     bestellung_pattern = r'\bde\d{10}\b'
     datum_pattern = r'\b\d{1,2}\.\d{1,2}\.\d{2,4}\b'
     zahlung_pattern = r'\d*.?\d+ *€'
 
+    # Header
     header = [
-        # Header
         ["Bestellung", "Datum", "Zahlung", "Captured at"]
     ]
+    # Empty data variable list of lists
     data = [
 
     ]
+    data_counter = 0
+
     # Create reader
     reader = easyocr.Reader(['de'])
 
@@ -67,9 +70,10 @@ def main():
 
 # Append the data to data variable
         if bestellung and datum and zahlung:
-            
+
             ic(data)
             data.append([bestellung, datum, zahlung, current_date])
+            data_counter += 1
             bestellung = None
             datum = None
             zahlung = None
@@ -77,6 +81,10 @@ def main():
     if not data:
         sys.exit("No data found")
     else:
+        # Check if data already saved in file
+        check_values_in_csv(data, filename)
+        ic(data)
+
         save_data_to_file(data, filename)
 
     ic(data)
@@ -130,6 +138,28 @@ def save_data_to_file(data, filename):
             writer.writerows(header)
             writer.writerows(data)
             print(f"The CSV file '{filename}' has been created.")
+
+def check_values_in_csv(data, filename):
+    try:
+        with open(filename, 'r', newline='') as file:
+            reader = csv.reader(file)
+            # Skip the header
+            next(reader, None)
+            
+            for entry in data:
+                value = entry[0]
+                ic(value)
+                
+                # Check each row in the CSV file
+                for row in reader:
+                    # Assuming the value you're checking is in the first column
+                    if value == row[0]:
+                        ic(f"Removing entry with value '{value}' from data.")
+                        data.remove(entry)
+                        break  # Assuming each value appears only once in the CSV
+
+    except FileNotFoundError:
+        ic("CSV file not found.")
 
 if __name__ == "__main__":
     main()
