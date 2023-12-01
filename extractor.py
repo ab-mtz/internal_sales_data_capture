@@ -24,26 +24,20 @@ def main():
     folder_path = "to_process"
     image_files = [file for file in os.listdir(folder_path) if file.lower().endswith(('.jpg', '.jpeg'))]
 
-
-    for image_file in image_files:
-        # Load image
-        image_path = image_file
-
-
         # Header
         header = [
             ["Bestellung", "Datum", "Zahlung", "Captured at"]
         ]
-        # Empty data variable list of lists
-        data = [
 
-        ]
+    # Create reader
+    reader = easyocr.Reader(['de'])
 
-        # Create reader
-        reader = easyocr.Reader(['de'])
-
+    for image_file in image_files:
         # Load image
-        # image_path = 'images\sample2.jpg'
+        image_path = os.path.join(folder_path, image_file)
+
+        # Empty data variable list of lists
+        data = [ ]
         
         # Output path 
         filename = "output.csv"
@@ -57,7 +51,6 @@ def main():
         zahlung = None
 
         # Search for regular expresions
-        
         for line in results:
             _, content, _2 = line
             if not bestellung:
