@@ -36,7 +36,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample3.jpg'
+    image_path = 'images\sample4.jpeg'
     
     # Output path 
     filename = "output.csv"
