@@ -33,7 +33,7 @@ def main():
     reader = easyocr.Reader(['de'])
 
     # Load image
-    image_path = 'images\sample4.jpeg'
+    image_path = 'images\sample3.jpg'
     
     # Output path 
     filename = "output.csv"
@@ -56,32 +56,18 @@ def main():
             bestellung = search_pattern(bestellung_pattern, content)
         ic(bestellung)
         if not datum:
-            datum = search_pattern(datum_pattern, content) 
+            _datum = search_pattern(datum_pattern, content)
+            if _datum:
+                datum = validate_date(_datum)
         ic(datum)
         if not zahlung:
             zahlung = search_pattern(zahlung_pattern, content)
         ic(zahlung)
 
-# Old code
-        # if match := re.search(bestellung_pattern, content):
-        #     if bestellung is None:
-        #         bestellung = match.group(0)
-        #         ic(match.group(0))
-        #     ic(match)
-
-        # if match := re.search(datum_pattern, content):
-        #     if datum is None:
-        #         datum = validate_date(match.group(0))
-        #         ic(match.group(0))
-
-        #     ic(match)
-
-        # if match := re.search(zahlung_pattern, content):
-        #     zahlung = match.group(0)
-        #     ic(match)
 
 # Append the data to data variable
         if bestellung and datum and zahlung:
+            
             ic(data)
             data.append([bestellung, datum, zahlung, current_date])
             bestellung = None
@@ -100,11 +86,11 @@ def main():
 
     # instert into to fields
 
-def validate_date(matched):
-    ic(matched)
-    day, month, year = map(int, matched.split("."))
+def validate_date(_datum):
+    ic(_datum)
+    day, month, year = map(int, _datum.split("."))
     if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
-        return f'{matched}(Error)'
+        return f'{_datum}(Error)'
 
 def search_pattern(pattern, content):
     if match := re.search(pattern, content):
