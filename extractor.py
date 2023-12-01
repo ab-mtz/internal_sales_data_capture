@@ -99,7 +99,7 @@ def validate_date(_datum):
     day, month, year = map(int, _datum.split("."))
     if year < 99:
         year += 2000
-    if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
+    if day < 0 or day > 31 or month < 0 or month > 12 or year != datetime.year:
         return f'{_datum}(Error)'
 
 def search_pattern(pattern, content):
