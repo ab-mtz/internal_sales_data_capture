@@ -101,6 +101,8 @@ def validate_date(_datum):
         year += 2000
     if day < 0 or day > 31 or month < 0 or month > 12 or year != datetime.year:
         return f'{_datum}(Error)'
+    else:
+        return _datum
 
 def search_pattern(pattern, content):
     if match := re.search(pattern, content):
