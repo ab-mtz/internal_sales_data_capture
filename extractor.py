@@ -7,7 +7,6 @@ from datetime import datetime
 import sys
 
 
-
 def main():
 
     #Dates variables
@@ -30,7 +29,6 @@ def main():
     data = [
 
     ]
-    data_counter = 0
 
     # Create reader
     reader = easyocr.Reader(['de'])
@@ -52,20 +50,15 @@ def main():
     # Search for regular expresions
     
     for line in results:
-        # ic(line)
         _, content, _2 = line
-        # ic(content)
         if not bestellung:
             bestellung = search_pattern(bestellung_pattern, content)
-        # ic(bestellung)
         if not datum:
             _datum = search_pattern(datum_pattern, content)
             if _datum:
                 datum = validate_date(_datum)
-        # ic(datum)
         if not zahlung:
             zahlung = search_pattern(zahlung_pattern, content)
-        # ic(zahlung)
 
 
 # Append the data to data variable
@@ -73,7 +66,6 @@ def main():
 
             # ic(data)
             data.append([bestellung, datum, zahlung, current_date])
-            data_counter += 1
             bestellung = None
             datum = None
             zahlung = None
@@ -87,12 +79,6 @@ def main():
 
         save_data_to_file(header, data, filename)
 
-    # ic(data)
-
-    # pack info 
-    # conect to google sheet api 
-
-    # instert into to fields
 
 def validate_date(_datum):
     ic(_datum)
@@ -116,7 +102,7 @@ def search_pattern(pattern, content):
                 
 def save_data_to_file(header, data, filename):
     if not data:
-        print("=" * 20, "We haven´t found new data to store in your csv file", "=" * 20)
+        print("=" * 20, "We haven't found new data to store in your csv file", "=" * 20)
     else:
         try:
             # If file already exists
@@ -151,6 +137,7 @@ def save_data_to_file(header, data, filename):
                 writer.writerows(data)
                 print("=" * 20, f"The CSV file '{filename}' has been created.", "=" * 20)
 
+
 def check_values_in_csv(data, filename):
     try:
         with open(filename, 'r', newline='') as file:
@@ -172,6 +159,7 @@ def check_values_in_csv(data, filename):
     except FileNotFoundError:
         print("=" * 20, "CSV file not found.", "=" * 20)
         pass
+
 
 if __name__ == "__main__":
     main()
