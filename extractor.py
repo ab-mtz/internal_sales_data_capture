@@ -97,7 +97,9 @@ def main():
 def validate_date(_datum):
     ic(_datum)
     _day, _month, _year = map(int, _datum.split("."))
-    current_year = datetime.year
+    current_datetime = datetime.now()
+    current_year = current_datetime.year
+    ic(current_year)
     if _year < 99:
         _year += 2000
         ic(_year)
