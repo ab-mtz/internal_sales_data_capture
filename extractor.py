@@ -95,11 +95,14 @@ def main():
     # instert into to fields
 
 def validate_date(_datum):
-    # ic(_datum)
-    day, month, year = map(int, _datum.split("."))
-    if year < 99:
-        year += 2000
-    if day < 0 or day > 31 or month < 0 or month > 12 or year != datetime.year:
+    ic(_datum)
+    _day, _month, _year = map(int, _datum.split("."))
+    current_year = datetime.year
+    if _year < 99:
+        _year += 2000
+        ic(_year)
+        ic(datetime.year)
+    if _day < 1 or _day > 31 or _month < 1 or _month > 12 or _year != current_year:
         return f'{_datum}(Error)'
     else:
         return _datum
