@@ -6,6 +6,7 @@ import csv
 from datetime import datetime
 import sys, os
 
+### NEXT: add "n of n files processed"
 
 def main():
     #Dates variables
