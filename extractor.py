@@ -57,21 +57,21 @@ def main():
         # ic(content)
         if not bestellung:
             bestellung = search_pattern(bestellung_pattern, content)
-        ic(bestellung)
+        # ic(bestellung)
         if not datum:
             _datum = search_pattern(datum_pattern, content)
             if _datum:
                 datum = validate_date(_datum)
-        ic(datum)
+        # ic(datum)
         if not zahlung:
             zahlung = search_pattern(zahlung_pattern, content)
-        ic(zahlung)
+        # ic(zahlung)
 
 
 # Append the data to data variable
         if bestellung and datum and zahlung:
 
-            ic(data)
+            # ic(data)
             data.append([bestellung, datum, zahlung, current_date])
             data_counter += 1
             bestellung = None
@@ -83,11 +83,11 @@ def main():
     else:
         # Check if data already saved in file
         check_values_in_csv(data, filename)
-        ic(data)
+        # ic(data)
 
         save_data_to_file(data, filename)
 
-    ic(data)
+    # ic(data)
 
     # pack info 
     # conect to google sheet api 
@@ -95,14 +95,14 @@ def main():
     # instert into to fields
 
 def validate_date(_datum):
-    ic(_datum)
+    # ic(_datum)
     day, month, year = map(int, _datum.split("."))
     if day < 0 or day > 31 or month > 0 or month > 12 or year != datetime.year:
         return f'{_datum}(Error)'
 
 def search_pattern(pattern, content):
     if match := re.search(pattern, content):
-        ic(match)
+        # ic(match)
         return match[0]
                 
 def save_data_to_file(data, filename):
@@ -151,7 +151,7 @@ def check_values_in_csv(data, filename):
             
             for entry in data:
                 value = entry[0]
-                ic(value)
+                # ic(value)
                 
                 # Check each row in the CSV file
                 for row in reader:
@@ -162,7 +162,7 @@ def check_values_in_csv(data, filename):
                         break  # Assuming each value appears only once in the CSV
 
     except FileNotFoundError:
-        ic("CSV file not found.")
+        # ic("CSV file not found.")
 
 if __name__ == "__main__":
     main()
