@@ -9,6 +9,7 @@ import sys, os
 ### NEXT: add "n of n files processed"
 
 def main():
+    c = 0
     #Dates variables
     current_datetime = datetime.now()
     year = current_datetime.year
@@ -81,18 +82,19 @@ def main():
             # ic(data)
 
             save_data_to_file(header, data, filename)
-
+        c += 1
+        print("=" * 20, f"{c} file(s) processed", "=" * 20)
 
 def validate_date(_datum):
-    ic(_datum)
+    # ic(_datum)
     _day, _month, _year = map(int, _datum.split("."))
     current_datetime = datetime.now()
     current_year = current_datetime.year
-    ic(current_year)
+    # ic(current_year)
     if _year < 99:
         _year += 2000
-        ic(_year)
-        ic(datetime.year)
+        # ic(_year)
+        # ic(datetime.year)
     if _day < 1 or _day > 31 or _month < 1 or _month > 12 or _year != current_year:
         return f'{_datum}(Error)'
     else:
